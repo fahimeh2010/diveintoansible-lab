@@ -16,7 +16,8 @@ services:
      - ${ANSIBLE_HOME}/ubuntu-c/ansible:/home/ansible
      - ${ANSIBLE_HOME}/ubuntu-c/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.2
 
   ubuntu1:
     hostname: ubuntu1
@@ -33,7 +34,8 @@ services:
      - ${ANSIBLE_HOME}/ubuntu1/ansible:/home/ansible
      - ${ANSIBLE_HOME}/ubuntu1/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.3
 
   ubuntu2:
     hostname: ubuntu2
@@ -50,7 +52,8 @@ services:
      - ${ANSIBLE_HOME}/ubuntu2/ansible:/home/ansible
      - ${ANSIBLE_HOME}/ubuntu2/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.4
 
   ubuntu3:
     hostname: ubuntu3
@@ -67,7 +70,8 @@ services:
      - ${ANSIBLE_HOME}/ubuntu3/ansible:/home/ansible
      - ${ANSIBLE_HOME}/ubuntu3/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.5
 
   centos1:
     hostname: centos1
@@ -86,7 +90,8 @@ services:
      - ${ANSIBLE_HOME}/centos1/ansible:/home/ansible
      - ${ANSIBLE_HOME}/centos1/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.6     
 
   centos2:
     hostname: centos2
@@ -103,7 +108,8 @@ services:
      - ${ANSIBLE_HOME}/centos2/ansible:/home/ansible
      - ${ANSIBLE_HOME}/centos2/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.7    
 
   centos3:
     hostname: centos3
@@ -120,7 +126,8 @@ services:
      - ${ANSIBLE_HOME}/centos3/ansible:/home/ansible
      - ${ANSIBLE_HOME}/centos3/root:/root
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.8    
 
   # Docker in Docker
   #
@@ -139,7 +146,8 @@ services:
     volumes:
      - ${ANSIBLE_HOME}/shared:/shared
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.9    
 
   portal:
     hostname: portal
@@ -157,8 +165,14 @@ services:
     ports:
      - "1000:80"
     networks:
-     - diveinto.io
+       diveinto.io:
+           ipv4_address: 172.18.0.10    
 
 networks:
   diveinto.io:
     name: diveinto.io
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.18.0.0/16
+         gateway: 172.18.0.1
